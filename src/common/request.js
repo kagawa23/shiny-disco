@@ -1,7 +1,7 @@
 import Mock from 'mockjs';
 import { options } from './index';
 
-export async function get(url, queryParm, opt = {}) {
+export async function get(url, queryParm = {}, opt = {}) {
   try {
     const query = Object.keys(queryParm)
       .reduce((res, v) => `${res}${v}=${queryParm[v]}&`, '')

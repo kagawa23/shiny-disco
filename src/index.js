@@ -16,7 +16,7 @@ class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectTab: 'home',
+      selectTab: 'materials',
     };
   }
 
@@ -58,7 +58,7 @@ class App extends PureComponent {
           onPress={() => this.setState({ selectTab: 'materials' })}
           selected={selectTab === 'materials'}
         >
-          <Materials />
+          <Materials title="素材库" id="materials" />
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
           iconName="user"
