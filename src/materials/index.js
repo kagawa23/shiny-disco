@@ -1,18 +1,32 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { PureComponent } from 'react';
+
+import {
+  StyleSheet, View, Text, SafeAreaView, TouchableOpacity,Image
+} from 'react-native';
+import wraper from '../common/indexWrapper';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+  banner: {
+    width: '100%',
+    height: 211,
   },
 });
-const Index = () => (
-  <View style={styles.container}>
-    <Text>素材库</Text>
-  </View>
-);
 
-export default Index;
+class Index extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <>
+        <TouchableOpacity onPress={() => {}}>
+          <Image style={styles.banner} />
+        </TouchableOpacity>
+      </>
+    );
+  }
+}
+
+export default wraper({ title: '素材库' })(Index);
