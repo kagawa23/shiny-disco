@@ -4,5 +4,6 @@ const Constants = {
   SHALLOW_COLOR: '#9C9D9C',
   MIDDLE_COLOR: '#4A4A4A',
   SHADOW_COLOR: '#7A7A7A',
+  COLLECTION_MARGIN: 15,
 };
 export default Constants;

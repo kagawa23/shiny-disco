@@ -13,9 +13,11 @@ import {
 } from 'react-native';
 import AppText from '../components/text';
 import wraper from '../components/indexWrapper';
+import Card from '../components/designCard';
+import Collections from '../components/collections';
 import Constants from '../common/constants';
 
-const {SHALLOW_COLOR, MIDDLE_COLOR, SHADOW_COLOR} = Constants;
+const { MIDDLE_COLOR, SHADOW_COLOR } = Constants;
 const { width: deviceWidth, height } = Dimensions.get('window');
 const componentMargin = 15;
 const styles = StyleSheet.create({
@@ -46,45 +48,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 60,
     backgroundColor: 'white',
   },
-  editorChoice: {
-    marginTop: 10,
-    backgroundColor: 'white',
-    padding: componentMargin,
-  },
-  choiceHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  choice: {
-    marginTop: componentMargin,
-    shadowOffset: { width: 0, height: 2 },
-    shadowColor: SHADOW_COLOR,
-    shadowOpacity: 0.71,
-    shadowRadius: 2,
-  },
-  choiceImage: {
-    width: deviceWidth - componentMargin * 2,
-    height: ((deviceWidth - componentMargin * 2) / 16) * 9,
-    resizeMode: 'cover',
-    borderTopRightRadius: 4,
-    borderTopLeftRadius: 4,
-  },
-  choiceInfo: {
-    height: 70,
-    padding: 12,
-    backgroundColor: 'white',
-    borderBottomLeftRadius: 4,
-    borderBottomRightRadius: 4,
-    justifyContent: 'space-between',
-  },
-  choiceSocial: {
-    alignSelf:'flex-end',
-    flexDirection:'row'
-  },
-  choiceSocialFonts:{
-    color:SHADOW_COLOR, 
-    fontSize:12
-  }
 });
 
 class Index extends PureComponent {
@@ -100,7 +63,7 @@ class Index extends PureComponent {
       },
     } = this.props;
 
-    console.log(choices);
+    // console.log(choices);
     return (
       <ScrollView>
         <TouchableOpacity onPress={() => {}}>
@@ -128,42 +91,26 @@ class Index extends PureComponent {
             <AppText>效果图</AppText>
           </View>
         </View>
-        <View style={styles.editorChoice}>
-          <View style={styles.choiceHeader}>
-            <AppText>
-              <Text style={{ fontWeight: '600' }}>每日精选</Text>
-            </AppText>
+        <Collections
+          title="每日精选"
+          moreIndicator={(
             <View style={{ flexDirection: 'row' }}>
               <AppText>
                 <Text style={{ color: MIDDLE_COLOR, fontSize: 12 }}>查看更多</Text>
               </AppText>
               <Icon name="right" style={{ marginLeft: 10 }} size={12} />
             </View>
-          </View>
-          <View>
-            {choices.map(({
-              id, image, decorationType, roomType, area,
-              likes,comments
-            }) => (
-              <View key={id} style={styles.choice}>
-                <Image
-                  borderTopRightRadius={4}
-                  source={{ uri: image }}
-                  style={styles.choiceImage}
-                />
-                <View style={styles.choiceInfo}>
-                  <AppText>{`${decorationType} · ${roomType} · ${area}㎡ `}</AppText>
-                  <View style={styles.choiceSocial}>
-                    <Icon color={SHALLOW_COLOR} name="like1" style={{ marginHorizontal: 5 }} size={12} />
-                    <AppText><Text style={styles.choiceSocialFonts}>{likes}</Text></AppText>
-                    <Icon color={SHALLOW_COLOR} name="heart" style={{ marginHorizontal: 5 }} size={12} />
-                    <AppText><Text style={styles.choiceSocialFonts}>{comments}</Text></AppText>
-                  </View>
-                </View>
-              </View>
-            ))}
-          </View>
-        </View>
+)}
+          mainContent={choices.map(choice => (
+            <Card key={choice.id} data={choice} />
+          ))}
+        />
+        <Collections
+          title="最IN模型"
+          mainContent={choices.map(choice => (
+            <Card key={choice.id} data={choice} />
+          ))}
+        />
       </ScrollView>
     );
   }
