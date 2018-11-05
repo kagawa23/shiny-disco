@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   choiceHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingBottom: 12,
   },
 });
 
@@ -34,18 +35,9 @@ const Collection = ({ title, moreIndicator, mainContent }) => (
       <AppText>
         <Text style={{ fontWeight: '600' }}>{title}</Text>
       </AppText>
-      {/* <View style={{ flexDirection: 'row' }}>
-        <AppText>
-          <Text style={{ color: MIDDLE_COLOR, fontSize: 12 }}>查看更多</Text>
-        </AppText>
-        <Icon name="right" style={{ marginLeft: 10 }} size={12} />
-      </View> */}
       {moreIndicator || null}
     </View>
-    <View>
-      {/* {choices.map(choice => (
-        <Card key={choice.id} data={choice} />
-      ))} */}
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
       {mainContent || null}
     </View>
   </View>

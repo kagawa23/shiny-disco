@@ -22,9 +22,10 @@ const { width: deviceWidth, height } = Dimensions.get('window');
 const componentMargin = 15;
 const styles = StyleSheet.create({
   coverImage: {
-    width: deviceWidth,
-    height: (deviceWidth / 16) * 9,
+    // width: deviceWidth,
+    // height: (deviceWidth / 16) * 9,
     justifyContent: 'center',
+    resizeMode: 'contain',
   },
   coverTitleGroup: {
     alignItems: 'center',
@@ -48,6 +49,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 60,
     backgroundColor: 'white',
   },
+  modelImage: {
+    width: 110,
+    height: 110,
+    marginBottom: 5,
+  },
 });
 
 class Index extends PureComponent {
@@ -59,7 +65,7 @@ class Index extends PureComponent {
   render() {
     const {
       data: {
-        choices, cover, model, topics,
+        choices, cover, models, topics,
       },
     } = this.props;
 
@@ -67,7 +73,16 @@ class Index extends PureComponent {
     return (
       <ScrollView>
         <TouchableOpacity onPress={() => {}}>
-          <ImageBackground source={{ uri: cover.image }} style={styles.coverImage}>
+          <ImageBackground
+            source={{ uri: cover.image }}
+            style={[
+              styles.coverImage,
+              {
+                width: deviceWidth,
+                height: (deviceWidth / 16) * 9,
+              },
+            ]}
+          >
             <View style={styles.coverTitleGroup}>
               <AppText>
                 <Text style={styles.coverTitle}>{cover.title}</Text>
@@ -107,8 +122,29 @@ class Index extends PureComponent {
         />
         <Collections
           title="最IN模型"
-          mainContent={choices.map(choice => (
-            <Card key={choice.id} data={choice} />
+          mainContent={models.map(({ id, image }) => (
+            <Image borderRadius={4} key={id} style={styles.modelImage} source={{ uri: image }} />
+          ))}
+        />
+        <Collections
+          title="专题案例"
+          mainContent={topics.map(({
+            image, id, title, subTitle,
+          }) => (
+            <ImageBackground
+              key={id}
+              source={{ uri: image }}
+              style={[styles.coverImage, { width: '100%' }]}
+            >
+              <View style={styles.coverTitleGroup}>
+                <AppText>
+                  <Text style={styles.coverTitle}>{title}</Text>
+                </AppText>
+                <AppText>
+                  <Text style={[styles.coverTitle, styles.coverSubTitle]}>{subTitle}</Text>
+                </AppText>
+              </View>
+            </ImageBackground>
           ))}
         />
       </ScrollView>

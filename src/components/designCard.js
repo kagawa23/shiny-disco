@@ -12,7 +12,7 @@ const { width: deviceWidth, height } = Dimensions.get('window');
 const componentMargin = Constants.COLLECTION_MARGIN;
 const styles = StyleSheet.create({
   choice: {
-    marginTop: componentMargin,
+    marginBottom: componentMargin,
     shadowOffset: { width: 0, height: 2 },
     shadowColor: SHADOW_COLOR,
     shadowOpacity: 0.71,
