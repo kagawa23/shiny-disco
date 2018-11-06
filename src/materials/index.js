@@ -11,6 +11,8 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
+import PropTypes from 'prop-types';
+
 import AppText from '../components/text';
 import wraper from '../components/indexWrapper';
 import Card from '../components/designCard';
@@ -19,17 +21,13 @@ import Constants from '../common/constants';
 
 const { MIDDLE_COLOR, SHADOW_COLOR } = Constants;
 const { width: deviceWidth, height } = Dimensions.get('window');
-const componentMargin = 15;
 const styles = StyleSheet.create({
   coverImage: {
-    // width: deviceWidth,
-    // height: (deviceWidth / 16) * 9,
     justifyContent: 'center',
     resizeMode: 'contain',
   },
   coverTitleGroup: {
     alignItems: 'center',
-    height: 45,
     justifyContent: 'space-between',
   },
   coverTitle: {
@@ -54,6 +52,16 @@ const styles = StyleSheet.create({
     height: 110,
     marginBottom: 5,
   },
+  subtitleButton: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 20,
+    backgroundColor: '#418E5A',
+    shadowOffset: { width: 0, height: 1 },
+    shadowColor: 'black',
+    shadowOpacity: 0.31,
+    shadowRadius: 3,
+  },
 });
 
 class Index extends PureComponent {
@@ -69,7 +77,6 @@ class Index extends PureComponent {
       },
     } = this.props;
 
-    // console.log(choices);
     return (
       <ScrollView>
         <TouchableOpacity onPress={() => {}}>
@@ -83,7 +90,7 @@ class Index extends PureComponent {
               },
             ]}
           >
-            <View style={styles.coverTitleGroup}>
+            <View style={[styles.coverTitleGroup, { height: 45 }]}>
               <AppText>
                 <Text style={styles.coverTitle}>{cover.title}</Text>
               </AppText>
@@ -109,12 +116,14 @@ class Index extends PureComponent {
         <Collections
           title="每日精选"
           moreIndicator={(
-            <View style={{ flexDirection: 'row' }}>
-              <AppText>
-                <Text style={{ color: MIDDLE_COLOR, fontSize: 12 }}>查看更多</Text>
-              </AppText>
-              <Icon name="right" style={{ marginLeft: 10 }} size={12} />
-            </View>
+            <TouchableOpacity>
+              <View style={{ flexDirection: 'row' }}>
+                <AppText>
+                  <Text style={{ color: MIDDLE_COLOR, fontSize: 12 }}>查看更多</Text>
+                </AppText>
+                <Icon name="right" style={{ marginLeft: 10 }} size={12} />
+              </View>
+            </TouchableOpacity>
 )}
           mainContent={choices.map(choice => (
             <Card key={choice.id} data={choice} />
@@ -134,15 +143,18 @@ class Index extends PureComponent {
             <ImageBackground
               key={id}
               source={{ uri: image }}
-              style={[styles.coverImage, { width: '100%' }]}
+              borderRadius={4}
+              style={[styles.coverImage, { width: '100%', aspectRatio: 16 / 9, marginBottom: 12 }]}
             >
-              <View style={styles.coverTitleGroup}>
+              <View style={[styles.coverTitleGroup, { height: 69 }]}>
                 <AppText>
                   <Text style={styles.coverTitle}>{title}</Text>
                 </AppText>
-                <AppText>
-                  <Text style={[styles.coverTitle, styles.coverSubTitle]}>{subTitle}</Text>
-                </AppText>
+                <View style={styles.subtitleButton}>
+                  <AppText>
+                    <Text style={[styles.coverTitle, styles.coverSubTitle]}>{subTitle}</Text>
+                  </AppText>
+                </View>
               </View>
             </ImageBackground>
           ))}
@@ -151,5 +163,9 @@ class Index extends PureComponent {
     );
   }
 }
+
+Index.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
 export default wraper()(Index);
