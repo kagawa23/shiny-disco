@@ -13,11 +13,13 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
+import { createStackNavigator } from 'react-navigation';
 import AppText from '../components/text';
 import wraper from '../components/indexWrapper';
 import Card from '../components/designCard';
 import Collections from '../components/collections';
 import Constants from '../common/constants';
+import Designs from './designs';
 
 const { MIDDLE_COLOR, SHADOW_COLOR } = Constants;
 const { width: deviceWidth, height } = Dimensions.get('window');
@@ -75,6 +77,7 @@ class Index extends PureComponent {
       data: {
         choices, cover, models, topics,
       },
+      navigation: { navigate },
     } = this.props;
 
     return (
@@ -116,7 +119,7 @@ class Index extends PureComponent {
         <Collections
           title="每日精选"
           moreIndicator={(
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigate('Designs')}>
               <View style={{ flexDirection: 'row' }}>
                 <AppText>
                   <Text style={{ color: MIDDLE_COLOR, fontSize: 12 }}>查看更多</Text>
@@ -166,6 +169,26 @@ class Index extends PureComponent {
 
 Index.propTypes = {
   data: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
-export default wraper()(Index);
+export default createStackNavigator(
+  {
+    Home: {
+      screen: wraper()(Index),
+      navigationOptions: () => ({
+        title: '素材库',
+      }),
+    },
+    // Details: DetailsScreen,
+    Designs: {
+      screen: Designs,
+      navigationOptions: () => ({
+        title: '案例列表',
+      }),
+    },
+  },
+  {
+    initialRouteName: 'Home',
+  },
+);

@@ -22,6 +22,7 @@ class App extends PureComponent {
 
   render() {
     const { selectTab } = this.state;
+
     return (
       <TabBarIOS tintColor="#2D2D34" style={styles.barStyle} barTintColor="#FAFAFA">
         <Icon.TabBarItemIOS
@@ -58,7 +59,7 @@ class App extends PureComponent {
           onPress={() => this.setState({ selectTab: 'materials' })}
           selected={selectTab === 'materials'}
         >
-          <Materials title="素材库" id="materials" />
+          <Materials screenProps={{ id: 'materials' }} />
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
           iconName="user"

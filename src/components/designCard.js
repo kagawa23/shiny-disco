@@ -48,7 +48,7 @@ const Card = ({
     image, decorationType, roomType, area, likes, comments,
   },
 }) => (
-  <View style={styles.choice}>
+  <View style={[styles.choice]}>
     <Image borderTopRightRadius={4} source={{ uri: image }} style={styles.choiceImage} />
     <View style={styles.choiceInfo}>
       <AppText>{`${decorationType} · ${roomType} · ${area}㎡ `}</AppText>
