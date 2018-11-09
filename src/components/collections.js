@@ -28,7 +28,13 @@ const Collection = ({ title, moreIndicator, mainContent }) => (
       </AppText>
       {moreIndicator}
     </View>
-    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+    <View
+      style={{
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+      }}
+    >
       {mainContent}
     </View>
   </View>

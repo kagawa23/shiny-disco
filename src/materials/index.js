@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: 0.31,
     shadowRadius: 3,
+    elevation: 2,
   },
 });
 
