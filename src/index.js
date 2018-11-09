@@ -1,5 +1,4 @@
-import React, { PureComponent } from 'react';
-// import { StyleSheet, TabBarIOS } from 'react-native';
+import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createBottomTabNavigator } from 'react-navigation';
 import Constants from './common/constants';
@@ -10,7 +9,7 @@ import Mine from './mine';
 import Classes from './classes';
 
 function iconWrapper({ name }) {
-  return ({ tintColor }) => <Icon name={name} size={20} color={tintColor} />;
+  return options => <Icon name={name} size={20} color={options.tintColor} />;
 }
 
 export default createBottomTabNavigator(

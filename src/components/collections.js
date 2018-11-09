@@ -1,16 +1,7 @@
-import React, { PureComponent } from 'react';
-import Icon from 'react-native-vector-icons/AntDesign';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  Dimensions,
-  Image,
-  ScrollView,
-} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import AppText from './text';
 import Constants from '../common/constants';
 
@@ -35,12 +26,22 @@ const Collection = ({ title, moreIndicator, mainContent }) => (
       <AppText>
         <Text style={{ fontWeight: '600' }}>{title}</Text>
       </AppText>
-      {moreIndicator || null}
+      {moreIndicator}
     </View>
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-      {mainContent || null}
+      {mainContent}
     </View>
   </View>
 );
+
+Collection.propTypes = {
+  title: PropTypes.string.isRequired,
+  moreIndicator: PropTypes.shape({}),
+  mainContent: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+Collection.defaultProps = {
+  moreIndicator: null,
+};
 
 export default Collection;

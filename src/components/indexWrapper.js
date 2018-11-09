@@ -1,13 +1,11 @@
 import React, { PureComponent } from 'react';
 
-import {
-  StyleSheet, View, Text, SafeAreaView,
-} from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import Constants from '../common/constants';
 import { get } from '../common/request';
 import { api } from '../common/index';
 
-const { BACKGROUND_COLOR, DEEP_COLOR } = Constants;
+const { BACKGROUND_COLOR } = Constants;
 
 const styles = StyleSheet.create({
   container: {

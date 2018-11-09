@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
+import PropTypes from 'prop-types';
 
 import {
   StyleSheet, View, Text, Dimensions, Image, TouchableOpacity,
@@ -8,7 +9,7 @@ import Constants from '../common/constants';
 import AppText from './text';
 
 const { SHALLOW_COLOR, SHADOW_COLOR } = Constants;
-const { width: deviceWidth, height } = Dimensions.get('window');
+const { width: deviceWidth } = Dimensions.get('window');
 const componentMargin = Constants.COLLECTION_MARGIN;
 const styles = StyleSheet.create({
   choice: {
@@ -67,5 +68,16 @@ const Card = ({
     </View>
   </TouchableOpacity>
 );
+
+Card.propTypes = {
+  data: PropTypes.shape({
+    image: PropTypes.string.isRequired,
+    decorationType: PropTypes.string.isRequired,
+    roomType: PropTypes.string.isRequired,
+    area: PropTypes.number.isRequired,
+    likes: PropTypes.number.isRequired,
+    comments: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 export default Card;

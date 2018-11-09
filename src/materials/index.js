@@ -21,8 +21,8 @@ import Collections from '../components/collections';
 import Constants from '../common/constants';
 import Designs from './designs';
 
-const { MIDDLE_COLOR, SHADOW_COLOR } = Constants;
-const { width: deviceWidth, height } = Dimensions.get('window');
+const { MIDDLE_COLOR } = Constants;
+const { width: deviceWidth } = Dimensions.get('window');
 const styles = StyleSheet.create({
   coverImage: {
     justifyContent: 'center',
@@ -168,8 +168,15 @@ class Index extends PureComponent {
 }
 
 Index.propTypes = {
-  data: PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired,
+  data: PropTypes.shape({
+    choices: PropTypes.array.isRequired,
+    cover: PropTypes.object.isRequired,
+    models: PropTypes.array.isRequired,
+    topics: PropTypes.array.isRequired,
+  }).isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default createStackNavigator(
