@@ -1,78 +1,61 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, TabBarIOS } from 'react-native';
+// import { StyleSheet, TabBarIOS } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { createBottomTabNavigator } from 'react-navigation';
+import Constants from './common/constants';
 import Home from './home';
 import DIY from './diy';
 import Materials from './materials';
 import Mine from './mine';
 import Classes from './classes';
 
-const styles = StyleSheet.create({
-  barStyle: {
-    height: 49,
-  },
-});
-class App extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectTab: 'materials',
-    };
-  }
-
-  render() {
-    const { selectTab } = this.state;
-
-    return (
-      <TabBarIOS tintColor="#2D2D34" style={styles.barStyle} barTintColor="#FAFAFA">
-        <Icon.TabBarItemIOS
-          iconName="home"
-          iconSize={20}
-          title="首页"
-          onPress={() => this.setState({ selectTab: 'home' })}
-          selected={selectTab === 'home'}
-        >
-          <Home />
-        </Icon.TabBarItemIOS>
-        <Icon.TabBarItemIOS
-          iconName="pencil"
-          iconSize={20}
-          title="DIY"
-          onPress={() => this.setState({ selectTab: 'diy' })}
-          selected={selectTab === 'diy'}
-        >
-          <DIY />
-        </Icon.TabBarItemIOS>
-        <Icon.TabBarItemIOS
-          iconName="book"
-          iconSize={20}
-          title="3D学堂"
-          onPress={() => this.setState({ selectTab: 'classes' })}
-          selected={selectTab === 'classes'}
-        >
-          <Classes />
-        </Icon.TabBarItemIOS>
-        <Icon.TabBarItemIOS
-          iconName="photo"
-          iconSize={20}
-          title="素材库"
-          onPress={() => this.setState({ selectTab: 'materials' })}
-          selected={selectTab === 'materials'}
-        >
-          <Materials screenProps={{ id: 'materials' }} />
-        </Icon.TabBarItemIOS>
-        <Icon.TabBarItemIOS
-          iconName="user"
-          iconSize={20}
-          title="我的"
-          onPress={() => this.setState({ selectTab: 'mine' })}
-          selected={selectTab === 'mine'}
-        >
-          <Mine />
-        </Icon.TabBarItemIOS>
-      </TabBarIOS>
-    );
-  }
+function iconWrapper({ name }) {
+  return ({ tintColor }) => <Icon name={name} size={20} color={tintColor} />;
 }
 
-export default App;
+export default createBottomTabNavigator(
+  {
+    Home: {
+      screen: Home,
+      navigationOptions: () => ({
+        title: '首页',
+        tabBarIcon: iconWrapper({ name: 'home' }),
+      }),
+    },
+    DIY: {
+      screen: DIY,
+      navigationOptions: () => ({
+        title: 'DIY',
+        tabBarIcon: iconWrapper({ name: 'pencil' }),
+      }),
+    },
+    Classes: {
+      screen: Classes,
+      navigationOptions: () => ({
+        title: '3D学堂',
+        tabBarIcon: iconWrapper({ name: 'book' }),
+      }),
+    },
+    Materials: {
+      screen: Materials,
+      navigationOptions: () => ({
+        title: '素材库',
+        tabBarIcon: iconWrapper({ name: 'photo' }),
+      }),
+    },
+    Mine: {
+      screen: Mine,
+      navigationOptions: () => ({
+        title: '我的',
+        tabBarIcon: iconWrapper({ name: 'user' }),
+      }),
+    },
+  },
+  {
+    tabBarOptions: {
+      inactiveTintColor: Constants.SHALLOW_COLOR,
+      activeTintColor: Constants.DEEP_COLOR,
+    },
+    initialRouteName: 'Home',
+  },
+);

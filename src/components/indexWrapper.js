@@ -16,16 +16,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const wrapper = () => WrappedComponent => class Index extends PureComponent {
+const wrapper = options => WrappedComponent => class Index extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { data: null };
   }
 
   async componentDidMount() {
-    const {
-      screenProps: { id },
-    } = this.props;
+    const { id } = options;
     const { success, data } = await get(`${api.host}${api[id]}`);
     if (success) {
       this.setState({ data });

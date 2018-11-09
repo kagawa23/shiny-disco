@@ -175,16 +175,16 @@ Index.propTypes = {
 export default createStackNavigator(
   {
     Home: {
-      screen: wraper()(Index),
+      screen: wraper({ id: 'materials' })(Index),
       navigationOptions: () => ({
         title: '素材库',
       }),
     },
-    // Details: DetailsScreen,
     Designs: {
       screen: Designs,
       navigationOptions: () => ({
         title: '案例列表',
+        tabBarVisible: false,
       }),
     },
   },
