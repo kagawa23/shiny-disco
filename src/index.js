@@ -38,9 +38,10 @@ export default createBottomTabNavigator(
     },
     Materials: {
       screen: Materials,
-      navigationOptions: () => ({
+      navigationOptions: ({ navigation }) => ({
         title: '素材库',
         tabBarIcon: iconWrapper({ name: 'photo' }),
+        tabBarVisible: navigation.state.index === 0,
       }),
     },
     Mine: {

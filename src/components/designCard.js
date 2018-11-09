@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 import {
-  StyleSheet, View, Text, Dimensions, Image,
+  StyleSheet, View, Text, Dimensions, Image, TouchableOpacity,
 } from 'react-native';
 import Constants from '../common/constants';
 import AppText from './text';
@@ -48,22 +48,24 @@ const Card = ({
     image, decorationType, roomType, area, likes, comments,
   },
 }) => (
-  <View style={[styles.choice]}>
-    <Image borderTopRightRadius={4} source={{ uri: image }} style={styles.choiceImage} />
-    <View style={styles.choiceInfo}>
-      <AppText>{`${decorationType} · ${roomType} · ${area}㎡ `}</AppText>
-      <View style={styles.choiceSocial}>
-        <Icon color={SHALLOW_COLOR} name="like1" style={{ marginHorizontal: 5 }} size={12} />
-        <AppText>
-          <Text style={styles.choiceSocialFonts}>{likes}</Text>
-        </AppText>
-        <Icon color={SHALLOW_COLOR} name="heart" style={{ marginHorizontal: 5 }} size={12} />
-        <AppText>
-          <Text style={styles.choiceSocialFonts}>{comments}</Text>
-        </AppText>
+  <TouchableOpacity onPress={() => {}}>
+    <View style={[styles.choice]}>
+      <Image borderTopRightRadius={4} source={{ uri: image }} style={styles.choiceImage} />
+      <View style={styles.choiceInfo}>
+        <AppText>{`${decorationType} · ${roomType} · ${area}㎡ `}</AppText>
+        <View style={styles.choiceSocial}>
+          <Icon color={SHALLOW_COLOR} name="like1" style={{ marginHorizontal: 5 }} size={12} />
+          <AppText>
+            <Text style={styles.choiceSocialFonts}>{likes}</Text>
+          </AppText>
+          <Icon color={SHALLOW_COLOR} name="heart" style={{ marginHorizontal: 5 }} size={12} />
+          <AppText>
+            <Text style={styles.choiceSocialFonts}>{comments}</Text>
+          </AppText>
+        </View>
       </View>
     </View>
-  </View>
+  </TouchableOpacity>
 );
 
 export default Card;

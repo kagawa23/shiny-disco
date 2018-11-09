@@ -40,8 +40,7 @@ class Designs extends PureComponent {
     if (designs.length < total) {
       const { success, data, total: newTotal } = await get(`${api.host}${api.designs}`);
       if (success) {
-        setTimeout(() => this.setState({ designs: designs.concat(data), total: newTotal }), 15000);
-        // this.setState({ designs: designs.concat(data), total: newTotal });
+        this.setState({ designs: designs.concat(data), total: newTotal });
       }
     }
   }
@@ -55,11 +54,18 @@ class Designs extends PureComponent {
         renderItem={this.renderItems}
         keyExtractor={this.keyExtractor}
         onEndReached={this.onEndReached}
-        onEndReachedThreshold={0.9}
+        onEndReachedThreshold={80}
         ListFooterComponent={(
-          <View style={{ height: 46 }}>
-            <ActivityIndicator size="small" color="#0000ff" />
-            <Text style={{ color: '#9C9D9C' }}>查看更多</Text>
+          <View
+            style={{
+              height: 46,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <ActivityIndicator size="small" color={Constants.SHADOW_COLOR} />
+            <Text style={{ color: Constants.SHADOW_COLOR }}>查看更多</Text>
           </View>
 )}
       />
