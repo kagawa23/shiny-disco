@@ -20,6 +20,7 @@ import Card from '../components/designCard';
 import Collections from '../components/collections';
 import Constants from '../common/constants';
 import Designs from './designs';
+import DesignDetail from './designDetail';
 
 const { MIDDLE_COLOR } = Constants;
 const { width: deviceWidth } = Dimensions.get('window');
@@ -130,7 +131,11 @@ class Index extends PureComponent {
             </TouchableOpacity>
 )}
           mainContent={choices.map(choice => (
-            <Card key={choice.id} data={choice} />
+            <Card
+              key={choice.id}
+              data={choice}
+              onPress={() => navigate('DesignDetail', { id: choice.id })}
+            />
           ))}
         />
         <Collections
@@ -192,7 +197,12 @@ export default createStackNavigator(
       screen: Designs,
       navigationOptions: () => ({
         title: '案例列表',
-        tabBarVisible: false,
+      }),
+    },
+    DesignDetail: {
+      screen: DesignDetail,
+      navigationOptions: () => ({
+        title: '案例详情',
       }),
     },
   },

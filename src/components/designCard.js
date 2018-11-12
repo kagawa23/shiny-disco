@@ -48,9 +48,9 @@ const styles = StyleSheet.create({
 const Card = ({
   data: {
     image, decorationType, roomType, area, likes, comments,
-  },
+  }, onPress,
 }) => (
-  <TouchableOpacity onPress={() => {}} style={{ backgroundColor: 'white' }}>
+  <TouchableOpacity onPress={onPress} style={{ backgroundColor: 'white' }}>
     <View style={[styles.choice]}>
       <Image borderTopRightRadius={4} source={{ uri: image }} style={styles.choiceImage} />
       <View style={styles.choiceInfo}>
@@ -79,6 +79,7 @@ Card.propTypes = {
     likes: PropTypes.number.isRequired,
     comments: PropTypes.number.isRequired,
   }).isRequired,
+  onPress: PropTypes.func.isRequired,
 };
 
 export default Card;

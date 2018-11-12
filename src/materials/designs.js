@@ -11,19 +11,23 @@ import { get } from '../common/request';
 import { api } from '../common/index';
 
 class Designs extends PureComponent {
-  static navigatorStyle = {
-    tabBarHidden: true,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
       designs: [],
       total: 0,
     };
-    this.renderItems = ({ item }) => (
-      <Card key={item.id} data={item} style={{ mariginBottom: 20 }} />
-    );
+    this.renderItems = ({ item }) => {
+      const { navigation } = this.props;
+      return (
+        <Card
+          key={item.id}
+          data={item}
+          style={{ mariginBottom: 20 }}
+          onPress={() => navigation.navigate('DesignDetail', { id: item.id })}
+        />
+      );
+    };
     this.keyExtractor = ({ id }) => id;
     this.onEndReached = this.onEndReached.bind(this);
   }
