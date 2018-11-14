@@ -10,6 +10,7 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  RefreshControl,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -71,7 +72,16 @@ const styles = StyleSheet.create({
 class Index extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      refreshing: false,
+    };
+  }
+
+  onRefresh() {
+    this.setState({ refreshing: true });
+    fetchData().then(() => {
+      this.setState({ refreshing: false });
+    });
   }
 
   render() {
@@ -81,9 +91,12 @@ class Index extends PureComponent {
       },
       navigation: { navigate },
     } = this.props;
-
+    const { refreshing } = this.state;
     return (
-      <ScrollView>
+      <ScrollView
+        // refreshControl={
+        //   <RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />}
+      >
         <TouchableOpacity onPress={() => {}}>
           <ImageBackground
             source={{ uri: cover.image }}

@@ -6,8 +6,6 @@ import {
   StyleSheet,
   View,
   Text,
-  FlatList,
-  ActivityIndicator,
   ImageBackground,
   Dimensions,
   TouchableOpacity,
@@ -19,6 +17,7 @@ import { SingleImage } from '../components/imageDisplay';
 import { get } from '../common/request';
 import { api, getRandomInt } from '../common/index';
 import Constants from '../common/constants';
+import LoadingBar from '../components/loadingBar';
 
 const { width: deviceWidth } = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -42,6 +41,10 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     marginRight: 8,
   },
+  headerStyle: {
+    color: Constants.MIDDLE_COLOR,
+    fontWeight: '600',
+  },
 });
 
 class DesignDetail extends PureComponent {
@@ -63,8 +66,7 @@ class DesignDetail extends PureComponent {
 
   render() {
     const { data } = this.state;
-    if (!data) return null;
-    console.log(data);
+    if (!data) return <LoadingBar content="加载中" />;
     const {
       image,
       user,
@@ -79,8 +81,8 @@ class DesignDetail extends PureComponent {
     } = data;
     const { name, avatar } = user;
     return (
-      <ScrollView>
-        <View style={{ flex: 1 }}>
+      <>
+        <ScrollView style={{ flex: 1 }} stickyHeaderIndices={[1]}>
           <ImageBackground source={{ uri: image }} style={styles.coverImage}>
             <View style={{ backgroundColor: 'red' }}>
               <AppText>Button</AppText>
@@ -100,6 +102,8 @@ class DesignDetail extends PureComponent {
               backgroundColor: 'white',
               padding: 12,
               height: 84,
+              position: 'relative',
+              top: 0,
               justifyContent: 'space-between',
             }}
           >
@@ -111,6 +115,10 @@ class DesignDetail extends PureComponent {
                 justifyContent: 'space-between',
                 flexDirection: 'row',
                 height: 24,
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                width: '100%',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -120,7 +128,14 @@ class DesignDetail extends PureComponent {
                 </AppText>
               </View>
               <TouchableOpacity>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    lineHeight: 24,
+                    height: 24,
+                  }}
+                >
                   <AppText>
                     <Text style={styles.authorText}>整体理念</Text>
                   </AppText>
@@ -135,42 +150,75 @@ class DesignDetail extends PureComponent {
           <View style={styles.floorplan}>
             <SingleImage aspectRatio={0.75} imageUrl={aerial} title="鸟瞰图" />
           </View>
-          <View style={[styles.floorplan, { marginTop: 20 }]}>
-            <View>
-              <AppText>
-                <Text>案例空间</Text>
-              </AppText>
-            </View>
-            {rooms.map(({ roomType: type, images: imgs, area: roomArea }) => (
-              <View key={`${type}${roomArea}`}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <AppText>
-                    <Text>{`${type} (${roomArea})`}</Text>
-                  </AppText>
-                  <AppText>空间描述</AppText>
-                </View>
-                {imgs.map(({
-                  photoUrl, renderType, photo360url, id,
-                }) => {
-                  const ratioArray = Constants.IMAGE_SIZE_RATIOS;
-                  const aspectRatio = ratioArray[getRandomInt(ratioArray.length)];
-                  return (
-                    <Image
-                      key={id}
-                      source={{ uri: photoUrl }}
-                      style={{
-                        width: '100%',
-                        paddingBottom: `${Math.floor(100 * aspectRatio)}%`,
-                        resizeMode: 'cover',
-                      }}
-                    />
-                  );
-                })}
+          {rooms.length > 0 ? (
+            <View style={[styles.floorplan, { marginTop: 20, marginBottom: 10 }]}>
+              <View style={{ alignItems: 'center' }}>
+                <AppText>
+                  <Text style={[styles.headerStyle, { fontSize: 18 }]}>案例空间</Text>
+                </AppText>
               </View>
-            ))}
-          </View>
+              {rooms.map(({ roomType: type, images: imgs, area: roomArea }) => (
+                <View key={`${type}${roomArea}`}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      height: 50,
+                      lineHeight: 50,
+                      alignItems: 'center',
+                    }}
+                  >
+                    <AppText>
+                      <Text style={[styles.headerStyle, { fontSize: 15 }]}>
+                        {`${type}   (${roomArea}㎡)`}
+                      </Text>
+                    </AppText>
+                    <AppText>
+                      <Text
+                        style={[
+                          styles.headerStyle,
+                          { fontSize: 13, color: Constants.SHALLOW_COLOR, fontWeight: '200' },
+                        ]}
+                      >
+                        空间描述
+                      </Text>
+                      <Icon name="down" size={14} color={Constants.SHADOW_COLOR} />
+                    </AppText>
+                  </View>
+                  {imgs.map(({
+                    photoUrl, renderType, photo360url, id,
+                  }) => {
+                    const ratioArray = Constants.IMAGE_SIZE_RATIOS;
+                    const aspectRatio = ratioArray[getRandomInt(ratioArray.length)];
+                    return (
+                      <Image
+                        key={id}
+                        source={{ uri: photoUrl }}
+                        style={{
+                          width: '100%',
+                          paddingBottom: `${Math.floor(100 * aspectRatio)}%`,
+                          resizeMode: 'cover',
+                          marginBottom: 8,
+                          borderRadius: 8,
+                        }}
+                      />
+                    );
+                  })}
+                </View>
+              ))}
+            </View>
+          ) : null}
+        </ScrollView>
+        <View
+          style={{
+            height: 50,
+            backgroundColor: 'white',
+            paddingHorizontal: Constants.COLLECTION_MARGIN,
+          }}
+        >
+          <AppText>This is app Text</AppText>
         </View>
-      </ScrollView>
+      </>
     );
   }
 }

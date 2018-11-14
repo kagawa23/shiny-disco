@@ -12,13 +12,22 @@ export const SingleImage = (props) => {
   const height = 100 * aspectRatio;
   return (
     <>
-      <View>
-        <AppText>{title}</AppText>
+      <View style={{ alignItems: 'center' }}>
+        <AppText>
+          <Text style={{ color: Constants.MIDDLE_COLOR, fontSize: 18, fontWeight: '600' }}>
+            {title}
+          </Text>
+        </AppText>
       </View>
       <View style={{ marginTop: 20 }}>
         <Image
           source={{ uri: imageUrl }}
-          style={{ width: '100%', paddingBottom: `${height}%`, resizeMode: 'cover' }}
+          style={{
+            width: '100%',
+            paddingBottom: `${height}%`,
+            resizeMode: 'cover',
+            borderRadius: 8,
+          }}
         />
       </View>
     </>

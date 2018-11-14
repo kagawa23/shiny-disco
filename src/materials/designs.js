@@ -9,6 +9,7 @@ import Card from '../components/designCard';
 import Constants from '../common/constants';
 import { get } from '../common/request';
 import { api } from '../common/index';
+import LoadingBar from '../components/loadingBar';
 
 class Designs extends PureComponent {
   constructor(props) {
@@ -59,19 +60,7 @@ class Designs extends PureComponent {
         keyExtractor={this.keyExtractor}
         onEndReached={this.onEndReached}
         onEndReachedThreshold={80}
-        ListFooterComponent={(
-          <View
-            style={{
-              height: 46,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <ActivityIndicator size="small" color={Constants.SHADOW_COLOR} />
-            <Text style={{ color: Constants.SHADOW_COLOR }}>查看更多</Text>
-          </View>
-)}
+        ListFooterComponent={<LoadingBar content={designs.length === 0 ? '加载中' : '加载更多'} />}
       />
     );
   }
