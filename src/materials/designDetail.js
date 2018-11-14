@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  TextInput,
 } from 'react-native';
 import AppText from '../components/text';
 import { SingleImage } from '../components/imageDisplay';
@@ -214,9 +215,23 @@ class DesignDetail extends PureComponent {
             height: 50,
             backgroundColor: 'white',
             paddingHorizontal: Constants.COLLECTION_MARGIN,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            lineHeight:50,
+            alignItems:'center',
           }}
         >
-          <AppText>This is app Text</AppText>
+          <TextInput
+            style={{ height: 34, paddingLeft:12,paddingVertical:8,color:Constants.SHALLOW_COLOR,backgroundColor: Constants.COMMENT_TEXT_BACKGROUND_COLOR,width:230 }}
+            defaultValue="说点什么吧"
+            editable={false}
+          />
+          <Icon color={Constants.COMMENT_ICON_COLOR} name="heart" size={16}>
+          <AppText><Text style={{color:Constants.SHALLOW_COLOR,fontSize:12}}>{` 10`}</Text></AppText>
+          </Icon>
+          <Icon color={Constants.COMMENT_ICON_COLOR} name="like1" size={16}>
+          <AppText><Text style={{color:Constants.SHALLOW_COLOR,fontSize:12}}>{` 100`}</Text></AppText>
+          </Icon>
         </View>
       </>
     );

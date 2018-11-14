@@ -77,13 +77,6 @@ class Index extends PureComponent {
     };
   }
 
-  onRefresh() {
-    this.setState({ refreshing: true });
-    fetchData().then(() => {
-      this.setState({ refreshing: false });
-    });
-  }
-
   render() {
     const {
       data: {
@@ -91,12 +84,8 @@ class Index extends PureComponent {
       },
       navigation: { navigate },
     } = this.props;
-    const { refreshing } = this.state;
     return (
-      <ScrollView
-        // refreshControl={
-        //   <RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />}
-      >
+      <ScrollView>
         <TouchableOpacity onPress={() => {}}>
           <ImageBackground
             source={{ uri: cover.image }}

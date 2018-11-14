@@ -4,6 +4,7 @@ import { StyleSheet, SafeAreaView } from 'react-native';
 import Constants from '../common/constants';
 import { get } from '../common/request';
 import { api } from '../common/index';
+import LoadingBar from './loadingBar';
 
 const { BACKGROUND_COLOR } = Constants;
 
@@ -32,7 +33,11 @@ const wrapper = options => WrappedComponent => class Index extends PureComponent
     const { data } = this.state;
     return (
       <SafeAreaView style={styles.container}>
-        {data ? <WrappedComponent data={data} {...this.props} /> : null}
+        {data ? (
+          <WrappedComponent data={data} {...this.props} />
+        ) : (
+          <LoadingBar content="加载中" />
+        )}
       </SafeAreaView>
     );
   }
