@@ -12,3 +12,5 @@ export const api = {
   designs: '/template/651967',
   designDetail: '/template/655276',
 };
+
+export const getRandomInt = max => Math.floor(Math.random() * Math.floor(max));

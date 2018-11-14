@@ -5,5 +5,6 @@ const Constants = {
   MIDDLE_COLOR: '#4A4A4A',
   SHADOW_COLOR: '#7A7A7A',
   COLLECTION_MARGIN: 15,
+  IMAGE_SIZE_RATIOS: [9 / 16, 3 / 4, 4 / 3],
 };
 export default Constants;
