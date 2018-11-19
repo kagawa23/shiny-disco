@@ -99,7 +99,12 @@ class DesignDetail extends PureComponent {
               <AppText>{`${decorationType} · ${roomType} · ${area}㎡ `}</AppText>
             </View>
           </ImageBackground>
-          <InfoBar title={title} avatar={avatar} name={name} rightButton={{ text: '整体理念' }} />
+          <InfoBar
+            title={title}
+            avatar={avatar}
+            name={name}
+            rightButton={{ text: '整体理念', expand: description }}
+          />
           <View style={styles.floorplan}>
             <SingleImage aspectRatio={0.75} imageUrl={floorplan} title="户型图" />
           </View>
@@ -113,9 +118,9 @@ class DesignDetail extends PureComponent {
                   <Text style={[styles.headerStyle, { fontSize: 18 }]}>案例空间</Text>
                 </AppText>
               </View>
-              {rooms.map(({ roomType: type, images: imgs, area: roomArea }) => (
+              {rooms.map(({ roomType: type, images: imgs, area: roomArea, roomDescription }) => (
                 <View key={`${type}${roomArea}`}>
-                  <View
+                  <InfoBar
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
@@ -123,24 +128,9 @@ class DesignDetail extends PureComponent {
                       lineHeight: 50,
                       alignItems: 'center',
                     }}
-                  >
-                    <AppText>
-                      <Text style={[styles.headerStyle, { fontSize: 15 }]}>
-                        {`${type}   (${roomArea}㎡)`}
-                      </Text>
-                    </AppText>
-                    <AppText>
-                      <Text
-                        style={[
-                          styles.headerStyle,
-                          { fontSize: 13, color: Constants.SHALLOW_COLOR, fontWeight: '200' },
-                        ]}
-                      >
-                        空间描述
-                      </Text>
-                      <Icon name="down" size={14} color={Constants.SHADOW_COLOR} />
-                    </AppText>
-                  </View>
+                    title={`${type}   (${roomArea}㎡)`}
+                    rightButton={{ text: '空间描述', expand: roomDescription }}
+                  />
                   {imgs.map(({
                     photoUrl, renderType, photo360url, id,
                   }) => {
